@@ -7,7 +7,8 @@ USE `URLs`;
 DROP TABLE IF EXISTS `url`;
 
 CREATE TABLE `url` (
-  `fullUrl` varchar(500) ,
-  `shortUrl` varchar(15) UNIQUE,
-  PRIMARY KEY (`fullUrl`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+	`url_key` varchar(32) NOT NULL,
+    `full_url` VARCHAR(500) UNIQUE NOT NULL,
+    `short_url` VARCHAR(50) UNIQUE NOT NULL,
+    PRIMARY KEY (`url_key`)
+)  ENGINE=INNODB DEFAULT CHARSET=utf8mb4;
