@@ -15,4 +15,6 @@ public interface UrlService {
     Url getUrlInfoWithFullUrl(String fullUrl);
 
     List<String> getAllKeys();
+
+    void deleteUrl(String key);
 }

@@ -39,5 +39,8 @@ public class UrlServiceImpl implements UrlService{
         return urlRepository.findAllUrlKeys();
     }
 
-
+    @Override
+    public void deleteUrl(String key) {
+        urlRepository.deleteById(key);
+    }
 }
