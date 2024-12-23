@@ -1,36 +1,49 @@
 package com.example.Server.entity;
 
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name="url")
+@Table(name="url", indexes = {
+        @Index(name = "idx_url_key", columnList = "url_key"),
+        @Index(name = "index_short_url", columnList = "short_url")
+})
 public class Url {
 
     @Id
-    @Column(name = "full_url")
-    private String realUrl;
-    @Column(name = "short_url")
+    @Column(name="url_key", unique = true, nullable = false)
+    private String key;
+
+    @Column(name = "full_url", unique = true, nullable = false)
+    private String fullUrl;
+
+    @Column(name = "short_url", unique = true, nullable = false)
     private String shortUrl;
 
     public Url() {
 
     }
 
-    public Url(String realUrl, String shortUrl) {
-        this.realUrl = realUrl;
+    public Url(String key, String realUrl, String shortUrl) {
+        this.key = key;
+        this.fullUrl = realUrl;
         this.shortUrl = shortUrl;
     }
 
-    public String getRealUrl() {
-        return realUrl;
+    public String getKey() {
+        return key;
     }
 
-    public void setRealUrl(String realUrl) {
-        this.realUrl = realUrl;
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public String getFullUrl() {
+        return fullUrl;
+    }
+
+    public void setFullUrl(String realUrl) {
+        this.fullUrl = realUrl;
     }
 
     public String getShortUrl() {
@@ -44,7 +57,8 @@ public class Url {
     @Override
     public String toString() {
         return "Url{" +
-                "realUrl='" + realUrl + '\'' +
+                "key='" + key + '\'' +
+                ", fullUrl='" + fullUrl + '\'' +
                 ", shortUrl='" + shortUrl + '\'' +
                 '}';
     }
