@@ -18,21 +18,25 @@ public class UrlServiceImpl implements UrlService{
         this.urlRepository = urlRepository;
     }
 
-
     @Override
     public void saveUrl(Url url) {
         urlRepository.save(url);
     }
 
     @Override
-    public Url getUrl(String fullUrl) {
-        Optional<Url>  shortUrl = urlRepository.findById(fullUrl);
-        return shortUrl.orElse(null);
+    public Url findById(String key) {
+        Optional<Url> url = urlRepository.findById(key);
+        return url.orElse(null);
     }
 
     @Override
-    public Url getOriginalUrl(String shortUrl) {
-        return urlRepository.getOriginalUrl(shortUrl);
+    public Url getUrlInfoWithFullUrl(String fullUrl) {
+        return urlRepository.findByFullUrl(fullUrl);
+    }
+
+    @Override
+    public List<String> getAllKeys() {
+        return urlRepository.findAllUrlKeys();
     }
 
 
