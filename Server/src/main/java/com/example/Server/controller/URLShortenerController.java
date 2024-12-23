@@ -6,11 +6,13 @@ import com.example.Server.service.UrlService;
 import com.example.Server.utility.Encoder;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
+import java.net.URI;
 import java.util.HashSet;
 
 @RestController
@@ -77,14 +79,22 @@ public class URLShortenerController {
      * @return a RedirectionView to the original full URL
      */
     @GetMapping("/{key}")
-    public ResponseEntity<RedirectView> redirect(@PathVariable String key){
+    public ResponseEntity<Void> redirect(@PathVariable String key){
         Url originalUrl = urlService.findById(key);
 
-        if(originalUrl != null)
-            return new ResponseEntity<>(new RedirectView(originalUrl.getFullUrl()), HttpStatus.FOUND);
+        if(originalUrl != null) {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setLocation(URI.create(originalUrl.getFullUrl()));
+            return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        }
         else return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    /**
+     * Redirect to the target page using the Full URL
+     * @param key the key for the short url
+     * @return a Redirection to the original page
+     */
     @DeleteMapping("/{key}")
     public ResponseEntity<String> deleteUrl(@PathVariable String key){
         if(keys.contains(key) || urlService.findById(key) != null){
