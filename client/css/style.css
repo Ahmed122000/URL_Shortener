@@ -32,6 +32,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column; /* Aligning content vertically */
     padding: 2rem;
 }
 
@@ -43,6 +44,7 @@ body {
     width: 100%;
     max-width: 400px;
     text-align: center;
+    margin-bottom: 2rem; /* Space between form and result */
 }
 
 .input-form label {
@@ -63,6 +65,7 @@ body {
     outline: none;
     transition: border-color 0.3s ease;
 }
+
 .input-form input[type="url"]:focus {
     border-color: #0073e6;
 }
@@ -80,6 +83,35 @@ body {
 
 .submit-btn:hover {
     background-color: #005bb5;
+}
+
+/* Result Section */
+#result {
+    margin-top: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+#result h5 {
+    font-size: 1.5rem;
+    color: #0073e6;
+    margin-bottom: 1rem;
+}
+
+#result p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+#result a {
+    color: #0073e6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#result a:hover {
+    text-decoration: underline;
 }
 
 /* Footer Styles */
@@ -122,5 +154,13 @@ body {
 
     .input-form {
         padding: 1.5rem;
+    }
+
+    #result h5 {
+        font-size: 1.2rem;
+    }
+
+    #result p {
+        font-size: 1rem;
     }
 }
