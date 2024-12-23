@@ -15,17 +15,35 @@ SAH Shortener is a URL-shortening website that enables users to convert long URL
 - **JPA Repository**: Facilitates database operations.
 - **Service Layer**: Connects the controller with the repository for a clean architecture.
 
-### APIs
-1. **POST** `/api/url`:
-   - Accepts a long URL from the user.
-   - Shortens the URL using the first 8 characters of a SHA-256 hash.
-   - Avoids hash collisions by increasing the hash length by 2 characters if a collision occurs.
-   - Ensures idempotency by returning the saved short URL if the full URL already exists in the database.
-2. **GET** `/api/{key}`:
-   - Redirects users from a short URL to the corresponding original URL.
-3. **DELETE** `/api/url`:
-   - Deletes a URL from the system.
-   - Restricted to admin use only.
+## API Endpoints
+
+### 1. **POST /api/url**
+   - **Description**: Shortens a given URL and saves it in the system.
+   - **Request Body**:
+     ```Raw String:
+       https://example.com     
+     ```
+   - **Response**:
+     ```json
+     {
+       "urlKey": "abc123",
+       "fullUrl": "https://example.com",
+       "shortUrl": "http://localhost:8080/api/abc123"
+     }
+     ```
+
+### 2. **GET /api/{key}**
+   - **Description**: Redirects to the original URL using the short URL key.
+   - **Response**:
+      - **302 FOUND**: Redirects to the full URL if the key is valid.
+      - **404 NOT FOUND**:the page is not found .
+
+### 3. **DELETE /api/url/{key}**
+   - **Description**: Deletes a URL mapping from the system (admin only).
+   - **Response**:
+     - **200 OK**: URL deleted successfully.
+     - **404 NOT FOUND**: URL key not found.
+
 
 ## Technical Details
 - The system uses SHA-256 hashing to generate unique keys for URLs.
