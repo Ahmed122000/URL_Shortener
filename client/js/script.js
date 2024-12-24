@@ -39,6 +39,15 @@ function updateUI(result) {
     <h5>Shortened URL</h5>
     <p>
         <a href="${result}" target="_blank">${result}</a>
+        <button id="copyButton">
+            <i class="fas fa-copy"></i>
+        </button>
     </p>
 `;
+
+    const copyButton = document.getElementById('copyButton');
+    copyButton.addEventListener('click', () => {
+        navigator.clipboard.writeText(result)
+    });
 }
+

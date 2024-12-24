@@ -85,7 +85,6 @@ body {
     background-color: #005bb5;
 }
 
-/* Result Section */
 #result {
     margin-top: 2rem;
     text-align: center;
@@ -102,6 +101,10 @@ body {
 #result p {
     font-size: 1.2rem;
     color: #333;
+    display: flex; /* Align elements horizontally */
+    justify-content: center; /* Center both elements */
+    align-items: center; /* Vertically center */
+    gap: 10px; /* Space between the URL and button */
 }
 
 #result a {
@@ -113,6 +116,35 @@ body {
 #result a:hover {
     text-decoration: underline;
 }
+
+/* Copy Button next to the result text */
+#copyButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0073e6;
+    color: #fff;
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#copyButton i {
+    margin-right: 8px;
+}
+
+#copyButton:hover {
+    background-color: #005bb5;
+    transform: scale(1.05);
+}
+
+#copyButton:active {
+    transform: scale(0.95);
+}
+
 
 /* Footer Styles */
 #footer {
