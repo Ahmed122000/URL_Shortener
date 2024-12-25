@@ -38,7 +38,7 @@ SAH Shortener is a URL-shortening website that enables users to convert long URL
       - **302 FOUND**: Redirects to the full URL if the key is valid.
       - **404 NOT FOUND**:the page is not found .
 
-### 3. **DELETE /api/url/{key}**
+### 3. **DELETE /api/{key}**
    - **Description**: Deletes a URL mapping from the system (admin only).
    - **Response**:
      - **200 OK**: URL deleted successfully.
