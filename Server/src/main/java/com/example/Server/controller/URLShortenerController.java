@@ -10,7 +10,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.view.RedirectView;
 
 import java.net.URI;
 import java.util.HashSet;
@@ -21,7 +20,11 @@ import java.util.HashSet;
 public class URLShortenerController {
 
     //fixed value for the domain
-    private final static String CURRENT_DOMAIN = "http://localhost:8080/api/";
+    private final static String CURRENT_DOMAIN =
+            System.getenv("CURRENT_DOMAIN")!= null?
+            System.getenv("CURRENT_DOMAIN") :
+            "http://localhost:8080/api/";
+    
     private int keyLength = 8;
 
     private final UrlService urlService;
