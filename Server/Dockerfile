@@ -1,10 +1,10 @@
-FROM maven:3-eclipse-temurin-17 AS build
-COPY . .
-RUN mvn clean package -DskipTests
+FROM openjdk:17-alpine
 
-FROM eclipse-temurin:17-alpine
+WORKDIR /app
 
-COPY --from=build /target/*.jar app.jar
+COPY target/*.jar app.jar
+
+ENV SPRING_PROFILES_ACTIVE=prod
 
 EXPOSE 8080
 
