@@ -3,8 +3,10 @@ document.getElementById('url-form').addEventListener('submit', async(event)=>{
 
     const rawText = document.getElementById('url').value;
 
+    url = 'https://url-shortener-k5fr.onrender.com'
+    const fullUrl = `${url}/api/url`
     try{
-        const response = await fetch('http://localhost:8080/api/url', 
+        const response = await fetch(fullUrl, 
         {
             method:"POST",
             headers:{
