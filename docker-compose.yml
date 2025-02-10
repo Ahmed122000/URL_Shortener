@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  backend:
+    image: ahmedhesham2000/url-shortener-server:latest
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+      - DATABASE_URL=jdbc:mysql://mysql-db:3306/URLs
+      - DATABASE_USERNAME=ahmed
+      - DATABASE_PASSWORD=ahmedROOT@2000
+      - PORT=8080
+      - CURRENT_DOMAIN=http://localhost:8080/api/
+    depends_on:
+      - mysql-db
+
+  frontend: 
+    image: ahmedhesham2000/url-shortener-client:latest
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+  mysql-db:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=Ahmed_ROOTMYSQL@2000
+      - MYSQL_DATABASE=URLs
+      - MYSQL_USER=ahmed
+      - MYSQL_PASSWORD=ahmedROOT@2000
+    volumes:
+      - mysql-data:/var/lib/mysql  # This is now a list
+
+volumes:
+  mysql-data:
