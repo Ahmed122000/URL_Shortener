@@ -1,0 +1,49 @@
+version: '3.8'
+services:
+  backend:
+    image: ahmedhesham2000/url-shortener-server:latest
+    build: 
+      context: ./Server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=prod
+	#set the url for your database (e.g. jdbc:mysql://mysql-db:3306/URLs
+      - DATABASE_URL=
+	#set the username for the database server
+      - DATABASE_USERNAME=
+	#ser the password for hte database server
+      - DATABASE_PASSWORD=
+	#the port you want the server to run on 
+      - PORT=8080
+	#the domain used to host your server followed with "/api" (e.g. http://localhost:8080/api)
+      - CURRENT_DOMAIN=
+    depends_on:
+      - mysql-db
+
+  frontend: 
+    image: ahmedhesham2000/url-shortener-client:latest
+    ports:
+      - "8081:80"
+    depends_on:
+      - backend
+
+  mysql-db:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+	#set the root password for the mysql image
+      - MYSQL_ROOT_PASSWORD=
+	# set the name of the database you want to use
+      - MYSQL_DATABASE=
+	#set a new user in the database (if you want to use a user instaed of root)
+      - MYSQL_USER=
+	#set password for the user
+      - MYSQL_PASSWORD=
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
