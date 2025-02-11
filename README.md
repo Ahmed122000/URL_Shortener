@@ -1,6 +1,6 @@
 # SAH Shortener
 
-SAH Shortener is a URL-shortening website that enables users to convert long URLs into short, manageable links. The project is built with a clean separation between the front-end and back-end for optimal performance and maintainability.
+SAH Shortener is a URL-shortening website that enables users to convert long URLs into short, manageable links. The project is built with a clean separation between the front-end and back-end for optimal performance and maintainability. It now includes Docker support for easy deployment and has been deployed on Render (back-end) and Vercel (front-end).
 
 ## Features
 
@@ -54,9 +54,10 @@ SAH Shortener is a URL-shortening website that enables users to convert long URL
 ## Getting Started
 
 ### Prerequisites
-- Java Development Kit (JDK) 11+
+- Java Development Kit (JDK) 17+
 - MySQL Database
-- Node.js (optional, for testing front-end independently)
+- Docker (optional for containerized deployment)
+- Docker comopse (optional for multi-container setup)
 
 ### Installation
 
@@ -65,8 +66,26 @@ SAH Shortener is a URL-shortening website that enables users to convert long URL
 $ git clone https://github.com/yourusername/SAH-Shortener.git
 $ cd SAH-Shortener
 ```
+#### Docker Setup
+1. Build and Run with Docker compose
+   1. Navigate to the project root directory
+   2. Update the `docker-compose.yml` file with your environment variables:
+     - `DATABASE_URL`: MySQL database url (e.g., `jdbc:mysql://mysql-db:3306/URLs`).
+     - `DATABASE_USERNAME`: MySQL username.  
+     - `DATABASE_PASSWORD`: MySQL password.
+     - `CURRENT_DOMAIN`: Domain for the server (e.g., `http://localhost:8080/api`).
+     - `MYSQL_ROOT_PASSWORD`: MySQL root password. 
+     - `MYSQL_DATABASE`: MySQL database name. 
+     - `MYSQL_USER`: MySQL user (optional)
+     - `MYSQL_PASSWORD`: MySQL user password (optional)
+   3. Run Docker Compose:
+      ```bash
+      $ docker-compose up --build
+      ```
+   this will start the backend, front-end, and MySQL database containers
 
-#### Back-End Setup
+#### Manual Setup (Without Docker)
+**Back-End Setup**
 1. Configure MySQL:
    - Create a database named `URLs`.
    - Use the provided SQL script in the `database` folder to set up the schema.
@@ -76,7 +95,7 @@ $ cd SAH-Shortener
    $ ./mvnw spring-boot:run
    ```
 
-#### Front-End Setup
+**Front-End Setup**
 1. Open the `index.html` file in a browser.
 2. Ensure the back-end server is running to test the full functionality.
 
